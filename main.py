@@ -9,6 +9,10 @@ from langchain import OpenAI, VectorDBQA
 import os.path
 import pathlib
 
+st.header("Human query for custom file")
+img_url = "https://media.discordapp.net/attachments/941971306004504638/1104201199181373550/HHT_style_close-up_shot__genre_gourmet__emotion_tempting__scene_255a9415-94e4-40e6-b92e-2c5f021c69b1.png?width=891&height=593"
+st.image(image=img_url, use_column_width='auto')
+
 import_result = []
 result_status = "fail"
 err_text = ""
@@ -91,3 +95,5 @@ with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(
         label='Start import PDF file', on_click=import_file)
+
+
