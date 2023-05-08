@@ -27,7 +27,7 @@ def show_similarity_search_form(faiss_index):
     
 
 def import_file():
-
+    faiss_index = None
     try:
         loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
         pages = loader.load_and_split()
