@@ -34,7 +34,7 @@ def show_similarity_search_form(faiss_index):
     with st.form(key='similarity_form'):
         similarity_text = st.text_input(label='Enter similarity')
         similarity_submit_button = st.form_submit_button(
-            label='Submit', on_click=query_similarity, args=[similarity_text, faiss_index])
+            label='Submit', on_click=query_similarity, args=["What is PySpark", faiss_index])
 
 
 def import_file():
