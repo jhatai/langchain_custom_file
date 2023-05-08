@@ -54,7 +54,7 @@ def get_human_text():
 
 def show_human_search_form(faiss_index):
     with st.form(key='human_form'):
-        human_question = get_human_text()
+        # human_question = get_human_text()
         # st.code(f"human_question is {human_question}")
         st.form_submit_button(
             label='Submit', on_click=query_human, args=[get_human_text(), faiss_index])
