@@ -13,7 +13,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 def import_file(file_path):
 
     try:
-        loader = PyPDFLoader("docs/layout-parser-paper.pdf")
+        loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings())
         page_num = str(len(pages))
