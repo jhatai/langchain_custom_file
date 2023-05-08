@@ -5,6 +5,7 @@ import openai
 from langchain.document_loaders import PyPDFLoader
 from langchain.vectorstores import FAISS
 from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain import OpenAI, VectorDBQA
 
 
 # import pdf
@@ -37,6 +38,21 @@ def show_similarity_search_form(faiss_index):
             label='Submit', on_click=query_similarity, args=["What is PySpark", faiss_index])
 
 
+def query_human(human_question, faiss_index):
+    # query = "What did the president say about Ketanji Brown Jackson"
+    qa = VectorDBQA.from_chain_type(llm=OpenAI(
+        openai_api_key=openai_api_key), chain_type="stuff", vectorstore=faiss_index)
+
+    st.code(qa.run(human_question))
+
+
+def show_human_search_form(faiss_index):
+    with st.form(key='human_form'):
+        similarity_text = st.text_input(label='Enter human question')
+        similarity_submit_button = st.form_submit_button(
+            label='Submit', on_click=query_human, args=["What is PySpark", faiss_index])
+
+
 def import_file():
     faiss_index = None
     try:
@@ -54,6 +70,7 @@ def import_file():
     st.write([result_status, err_text])
     if faiss_index:
         show_similarity_search_form(faiss_index)
+        show_human_search_form(faiss_index)
 
     # import_result= [result_status, faiss_index, text]
 
