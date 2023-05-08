@@ -53,9 +53,9 @@ def get_human_text():
 def show_human_search_form(faiss_index):
     with st.form(key='human_form'):
         human_question = get_human_text()
-        print(f"human_question is {human_question}")
-        similarity_submit_button = st.form_submit_button(
-            label='Submit', on_click=query_human, args=[human_question, faiss_index])
+        st.code(f"human_question is {human_question}")
+        # similarity_submit_button = st.form_submit_button(
+        #     label='Submit', on_click=query_human, args=[human_question, faiss_index])
 
 
 def import_file():
