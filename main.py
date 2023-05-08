@@ -10,10 +10,7 @@ import os.path
 import pathlib
 
 
-uploaded_files = st.file_uploader("Choose a pdf file", accept_multiple_files=False)
 
-bytes_data = uploaded_file.read()
-st.write("filename:", uploaded_file.name)
 # st.write(bytes_data)
 
 # import pdf
