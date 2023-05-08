@@ -41,7 +41,7 @@ with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
 
-st.write(import_result)
+st.write([result_status,err_text])
 # similarity query
 
 # Human question
