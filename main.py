@@ -75,7 +75,7 @@ def show_human_search_form(faiss_index):
 def import_file():
     faiss_index = None
     try:
-        loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
+        loader = PyPDFLoader("data/0222_Jerry_Hung.pdf")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
