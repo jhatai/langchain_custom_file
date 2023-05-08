@@ -13,12 +13,26 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 import_result = []
 result_status = "fail"
 err_text = ""
+
+def query_similarity(similarity_text):
+    # query = "What did the president say about Ketanji Brown Jackson"
+    docs = db.similarity_search(similarity_text)
+    st.code(docs[0].page_content)
+
+def show_similarity_search_form():
+    with st.form(key='similarity_form'):
+        similarity_text = st.text_input(label='Enter similarity')
+        similarity_submit_button = st.form_submit_button(
+            label='Submit', on_click=query_similarity, args=[similarity_text])
+    
+
 def import_file():
 
     try:
         loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
         pages = loader.load_and_split()
-        faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
+        faiss_index = FAISS.from_documents(
+            pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
         page_num = str(len(pages))
         result_status = "sucess"
         err_text = f"import is done with {page_num} pages"
@@ -26,7 +40,10 @@ def import_file():
         print(e)
         result_status = "fail"
         err_text = e
-    st.write([result_status,err_text])
+    st.write([result_status, err_text])
+    if faiss_index:
+        show_similarity_search_form()
+    
     # import_result= [result_status, faiss_index, text]
 
 
@@ -40,20 +57,21 @@ openai_api_key = get_api_key()
 
 with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
-    import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
-    
+    import_submit_button = st.form_submit_button(
+        label='Submit', on_click=import_file)
+
 # similarity query
 
 # Human question
 # template = """
-    
+
 #     Your goal is to:
 #     - Use {tone} voice and tone. Based on the topic and  a specified tone to create a {blog_length}-word blog
 #     - Convert the blog to a specified dialect
 
 #     Here are some examples different Tones:
 #     - Formal: We went to Barcelona for the weekend. We have a lot of things to tell you.
-#     - Informal: Went to Barcelona for the weekend. Lots to tell you.  
+#     - Informal: Went to Barcelona for the weekend. Lots to tell you.
 
 #     Here are some examples of words in different dialects:
 #     - American: French Fries, cotton candy, apartment, garbage, cookie, green thumb, parking lot, pants, windshield
@@ -63,12 +81,12 @@ with st.form(key='import_form'):
 #     - American: I headed straight for the produce section to grab some fresh vegetables, like bell peppers and zucchini. After that, I made my way to the meat department to pick up some chicken breasts.
 #     - British: Well, I popped down to the local shop just the other day to pick up a few bits and bobs. As I was perusing the aisles, I noticed that they were fresh out of biscuits, which was a bit of a disappointment, as I do love a good cuppa with a biscuit or two.
 
-        
+
 #     Below is the topic, tone, and dialect:
 #     TONE: {tone}
 #     DIALECT: {dialect}
 #     Topic: {topic}
-    
+
 #     YOUR {dialect} RESPONSE:
 # """
 
