@@ -2,7 +2,45 @@ import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
 import openai
+from langchain.document_loaders import PyPDFLoader
+from langchain.vectorstores import FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
 
+
+# import pdf
+# Form+ filepicker + commit + text with status
+# Forms can be declared using the 'with' syntax
+def import_file(file_path):
+
+    try:
+        loader = PyPDFLoader("docs/layout-parser-paper.pdf")
+        pages = loader.load_and_split()
+        faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings())
+        page_num = str(len(pages))
+        result_status = "sucess"
+        text = f"import is done with {page_num} pages"
+    except Exception as e:
+        print(e)
+        result_status = "fail"
+        text = e.message
+    return [result_status, faiss_index, text]
+
+
+def get_api_key():
+    input_text = st.text_input(
+        label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
+    return input_text
+
+
+openai_api_key = get_api_key()
+
+with st.form(key='import_form'):
+    text_input = st.text_input(label='Enter your name')
+    import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
+
+# similarity query
+
+# Human question
 template = """
     
     Your goal is to:
@@ -39,7 +77,7 @@ prompt = PromptTemplate(
 def load_LLM(openai_api_key):
     """Logic for loading the chain you want to use should go here."""
     # Make sure your openai_api_key is set as an environment variable
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key )
+    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
 
@@ -62,19 +100,19 @@ st.image(image=img_url, use_column_width='auto')
 st.markdown("## Enter configs to write a blog")
 
 
-def get_api_key():
-    input_text = st.text_input(
-        label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
-    return input_text
+# def get_api_key():
+#     input_text = st.text_input(
+#         label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
+#     return input_text
 
 
-openai_api_key = get_api_key()
+# openai_api_key = get_api_key()
 
 col1, col2, col3 = st.columns(3)
 with col1:
     option_tone = st.selectbox(
         'Which tone ?',
-        ('professional', 'conversational','humorous','empathic','academic','casual','creative'))
+        ('professional', 'conversational', 'humorous', 'empathic', 'academic', 'casual', 'creative'))
 
 with col2:
     option_dialect = st.selectbox(
@@ -96,6 +134,7 @@ def get_text():
                               placeholder="Your Topic...", key="topic_input")
     return input_text
 
+
 st.text('Tell me the topic you are interested in...')
 topic_input = get_text()
 
@@ -114,17 +153,19 @@ st.button("*Execute..*", type='secondary',
 
 st.markdown("### Suggestion from AI writer:")
 
+
 def generate_response(prompt):
     completions = openai.Completion.create(
-        engine = "text-davinci-003",
-        prompt = prompt,
-        max_tokens = 1024,
-        n = 1,
-        stop = None,
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=1024,
+        n=1,
+        stop=None,
         temperature=0.5,
     )
     message = completions.choices[0].text
-    return message 
+    return message
+
 
 if topic_input:
     if not openai_api_key:
@@ -142,6 +183,5 @@ if topic_input:
     # st.write(formatted_blog)
     st.code(generate_response(prompt_with_topic))
 
-    
 
 # todo 1. write page title and description 2. Add options applied
