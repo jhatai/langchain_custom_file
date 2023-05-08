@@ -10,6 +10,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 # import pdf
 # Form+ filepicker + commit + text with status
 # Forms can be declared using the 'with' syntax
+import_result = []
 def import_file(file_path):
 
     try:
@@ -23,7 +24,7 @@ def import_file(file_path):
         print(e)
         result_status = "fail"
         text = e.message
-    return [result_status, faiss_index, text]
+    import_result= [result_status, faiss_index, text]
 
 
 def get_api_key():
@@ -38,6 +39,7 @@ with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
 
+st.write(import_result)
 # similarity query
 
 # Human question
