@@ -38,7 +38,7 @@ def show_similarity_search_form(faiss_index):
             label='Submit', on_click=query_similarity, args=["What is PySpark", faiss_index])
 
 
-def query_human(human_question, faiss_index):
+def query_human( faiss_index):
     # query = "What did the president say about Ketanji Brown Jackson"
     qa = VectorDBQA.from_chain_type(llm=OpenAI(
         openai_api_key=openai_api_key), chain_type="stuff", vectorstore=faiss_index)
@@ -52,7 +52,7 @@ def get_human_text():
     return input_text
 
 
-st.session_state.human_question = get_human_text()
+human_question= get_human_text()
 
 # human_question = get_human_text()
 
@@ -62,7 +62,7 @@ def show_human_search_form(faiss_index):
         # human_question = get_human_text()
         # st.code(f"human_question is {human_question}")
         st.form_submit_button(
-            label='Submit', on_click=query_human, args=[st.session_state.human_question, faiss_index])
+            label='Submit', on_click=query_human, args=[faiss_index])
         # similarity_submit_button = st.form_submit_button(
         #     label='Submit', on_click=query_human, args=[human_question, faiss_index])
 
