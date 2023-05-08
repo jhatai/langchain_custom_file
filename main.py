@@ -83,7 +83,7 @@ def import_file():
         err_text = e
     st.write([result_status, err_text])
     if faiss_index:
-        show_similarity_search_form(faiss_index)
+        # show_similarity_search_form(faiss_index)
         show_human_search_form(faiss_index)
 
     # import_result= [result_status, faiss_index, text]
