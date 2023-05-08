@@ -23,7 +23,7 @@ def import_file():
     except Exception as e:
         print(e.with_traceback)
         result_status = "fail"
-        text = e.message
+        text = e.with_traceback
     import_result= [result_status, faiss_index, text]
 
 
