@@ -45,15 +45,19 @@ def query_human(human_question, faiss_index):
 
     st.code(qa.run(human_question))
 
+
 def get_human_text():
     input_text = st.text_input(label="Enter human question", label_visibility='collapsed',
-                              placeholder="Ask a question", key="human_input")
+                               placeholder="Ask a question", key="human_input")
     return input_text
+
 
 def show_human_search_form(faiss_index):
     with st.form(key='human_form'):
         human_question = get_human_text()
         st.code(f"human_question is {human_question}")
+        st.form_submit_button(
+            label='Submit')
         # similarity_submit_button = st.form_submit_button(
         #     label='Submit', on_click=query_human, args=[human_question, faiss_index])
 
