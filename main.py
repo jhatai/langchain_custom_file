@@ -18,7 +18,7 @@ def import_file():
     try:
         loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
         pages = loader.load_and_split()
-        faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings())
+        faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
         page_num = str(len(pages))
         result_status = "sucess"
         err_text = f"import is done with {page_num} pages"
