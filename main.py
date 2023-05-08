@@ -93,3 +93,7 @@ with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(
         label='Submit', on_click=import_file)
+
+  
+st.text_input(label="test state", key='test')
+st.write(st.session_state.test)
