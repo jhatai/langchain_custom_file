@@ -129,5 +129,5 @@ def upload():
             destination_file.close()
             st.session_state["upload_state"] = "Saved " + complete_name + " successfully!"
             st.session_state["file_name"] = uploaded_file.name
-    st.write(st.session_state["file_name"])
+    # st.write(st.session_state["file_name"])
 st.button("Upload file to Sandbox", on_click=upload)
