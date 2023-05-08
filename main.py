@@ -14,16 +14,16 @@ import_result = []
 result_status = "fail"
 err_text = ""
 
-def query_similarity(similarity_text):
+def query_similarity(similarity_text,faiss_index):
     # query = "What did the president say about Ketanji Brown Jackson"
-    docs = db.similarity_search(similarity_text)
+    docs = faiss_index.similarity_search(similarity_text)
     st.code(docs[0].page_content)
 
-def show_similarity_search_form():
+def show_similarity_search_form(faiss_index):
     with st.form(key='similarity_form'):
         similarity_text = st.text_input(label='Enter similarity')
         similarity_submit_button = st.form_submit_button(
-            label='Submit', on_click=query_similarity, args=[similarity_text])
+            label='Submit', on_click=query_similarity, args=[similarity_text,faiss_index])
     
 
 def import_file():
@@ -42,7 +42,7 @@ def import_file():
         err_text = e
     st.write([result_status, err_text])
     if faiss_index:
-        show_similarity_search_form()
+        show_similarity_search_form(faiss_index)
     
     # import_result= [result_status, faiss_index, text]
 
