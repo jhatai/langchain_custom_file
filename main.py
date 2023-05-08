@@ -40,8 +40,7 @@ openai_api_key = get_api_key()
 with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
-
-st.write([result_status,err_text])
+    st.write([result_status,err_text])
 # similarity query
 
 # Human question
