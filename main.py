@@ -14,17 +14,28 @@ import_result = []
 result_status = "fail"
 err_text = ""
 
-def query_similarity(similarity_text,faiss_index):
+
+def get_api_key():
+    input_text = st.text_input(
+        label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
+    return input_text
+
+
+openai_api_key = get_api_key()
+
+
+def query_similarity(similarity_text, faiss_index):
     # query = "What did the president say about Ketanji Brown Jackson"
     docs = faiss_index.similarity_search(similarity_text)
     st.code(docs[0].page_content)
+
 
 def show_similarity_search_form(faiss_index):
     with st.form(key='similarity_form'):
         similarity_text = st.text_input(label='Enter similarity')
         similarity_submit_button = st.form_submit_button(
-            label='Submit', on_click=query_similarity, args=[similarity_text,faiss_index])
-    
+            label='Submit', on_click=query_similarity, args=[similarity_text, faiss_index])
+
 
 def import_file():
     faiss_index = None
@@ -43,17 +54,9 @@ def import_file():
     st.write([result_status, err_text])
     if faiss_index:
         show_similarity_search_form(faiss_index)
-    
+
     # import_result= [result_status, faiss_index, text]
 
-
-def get_api_key():
-    input_text = st.text_input(
-        label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
-    return input_text
-
-
-openai_api_key = get_api_key()
 
 with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
