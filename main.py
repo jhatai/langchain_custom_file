@@ -26,6 +26,7 @@ def import_file():
         print(e.with_traceback)
         result_status = "fail"
         err_text = e.with_traceback
+    st.write([result_status,err_text])
     # import_result= [result_status, faiss_index, text]
 
 
@@ -40,7 +41,7 @@ openai_api_key = get_api_key()
 with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(label='Submit', on_click=import_file)
-    st.write([result_status,err_text])
+    
 # similarity query
 
 # Human question
