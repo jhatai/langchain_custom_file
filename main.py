@@ -11,6 +11,8 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 # Form+ filepicker + commit + text with status
 # Forms can be declared using the 'with' syntax
 import_result = []
+result_status = "fail"
+err_text = ""
 def import_file():
 
     try:
@@ -19,12 +21,12 @@ def import_file():
         faiss_index = FAISS.from_documents(pages, OpenAIEmbeddings())
         page_num = str(len(pages))
         result_status = "sucess"
-        text = f"import is done with {page_num} pages"
+        err_text = f"import is done with {page_num} pages"
     except Exception as e:
         print(e.with_traceback)
         result_status = "fail"
-        text = e.with_traceback
-    import_result= [result_status, faiss_index, text]
+        err_text = e.with_traceback
+    # import_result= [result_status, faiss_index, text]
 
 
 def get_api_key():
