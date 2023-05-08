@@ -25,17 +25,17 @@ def get_api_key():
 openai_api_key = get_api_key()
 
 
-def query_similarity(similarity_text, faiss_index):
-    # query = "What did the president say about Ketanji Brown Jackson"
-    docs = faiss_index.similarity_search(similarity_text)
-    st.code(docs[0].page_content)
+# def query_similarity(similarity_text, faiss_index):
+#     # query = "What did the president say about Ketanji Brown Jackson"
+#     docs = faiss_index.similarity_search(similarity_text)
+#     st.code(docs[0].page_content)
 
 
-def show_similarity_search_form(faiss_index):
-    with st.form(key='similarity_form'):
-        similarity_text = st.text_input(label='Enter similarity')
-        similarity_submit_button = st.form_submit_button(
-            label='Submit', on_click=query_similarity, args=["What is PySpark", faiss_index])
+# def show_similarity_search_form(faiss_index):
+#     with st.form(key='similarity_form'):
+#         similarity_text = st.text_input(label='Enter similarity')
+#         similarity_submit_button = st.form_submit_button(
+#             label='Submit', on_click=query_similarity, args=["What is PySpark", faiss_index])
 
 
 def query_human( faiss_index):
@@ -43,23 +43,23 @@ def query_human( faiss_index):
     qa = VectorDBQA.from_chain_type(llm=OpenAI(
         openai_api_key=openai_api_key), chain_type="stuff", vectorstore=faiss_index)
 
-    st.code(qa.run(human_question))
+    st.code(qa.run(st.session_state.human_question))
 
 
 def get_human_text():
     input_text = st.text_input(label="Enter human question", label_visibility='collapsed',
-                               placeholder="Ask a question", key="human_input")
+                               placeholder="Ask a question", key="human_question")
     return input_text
 
 
-human_question= get_human_text()
+# human_question= get_human_text()
 
 # human_question = get_human_text()
 
 
 def show_human_search_form(faiss_index):
     with st.form(key='human_form'):
-        # human_question = get_human_text()
+        human_question = get_human_text()
         # st.code(f"human_question is {human_question}")
         st.form_submit_button(
             label='Submit', on_click=query_human, args=[faiss_index])
