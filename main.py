@@ -23,9 +23,9 @@ def import_file():
         result_status = "sucess"
         err_text = f"import is done with {page_num} pages"
     except Exception as e:
-        print(e.with_traceback)
+        print(e)
         result_status = "fail"
-        err_text = e.with_traceback
+        err_text = e
     st.write([result_status,err_text])
     # import_result= [result_status, faiss_index, text]
 
