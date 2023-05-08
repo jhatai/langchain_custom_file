@@ -9,12 +9,6 @@ from langchain import OpenAI, VectorDBQA
 import os.path
 import pathlib
 
-
-# st.write(bytes_data)
-
-# import pdf
-# Form+ filepicker + commit + text with status
-# Forms can be declared using the 'with' syntax
 import_result = []
 result_status = "fail"
 err_text = ""
@@ -74,7 +68,7 @@ def show_human_search_form(faiss_index):
 def import_file():
     faiss_index = None
     try:
-        loader = PyPDFLoader("data/0222_Jerry_Hung.pdf")
+        loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
@@ -97,26 +91,3 @@ with st.form(key='import_form'):
     text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(
         label='Submit', on_click=import_file)
-
-
-# st.write("""
-# # File Picker
-# """)
-# uploaded_file = st.file_uploader("Choose a PDF file")
-
-# def upload():
-#     if uploaded_file is None:
-#         st.session_state["upload_state"] = "Upload a file first!"
-#     else:
-#         # data = uploaded_file.getvalue().decode('utf-8')
-#         parent_path = pathlib.Path(__file__).parent.parent.resolve()
-#         save_path = os.path.join(parent_path, "data")
-#         complete_name = os.path.join(save_path, uploaded_file.name)+"/"+uploaded_file.name
-
-#         with open(complete_name, "wb") as destination_file:
-#             destination_file.write(uploaded_file.getbuffer())
-#             destination_file.close()
-#             st.session_state["upload_state"] = "Saved " + complete_name + " successfully!"
-#             st.session_state["file_name"] = uploaded_file.name
-#     # st.write(st.session_state["file_name"])
-# st.button("Upload file to Sandbox", on_click=upload)
