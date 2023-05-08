@@ -11,7 +11,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 # Form+ filepicker + commit + text with status
 # Forms can be declared using the 'with' syntax
 import_result = []
-def import_file(file_path):
+def import_file():
 
     try:
         loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
