@@ -10,7 +10,7 @@ import os.path
 import pathlib
 
 st.header("Human query for custom file")
-img_url = "https://media.discordapp.net/attachments/984632500875821066/1105245831294091295/HHT_A_robot_study_a_bible_hyper_realistic_dark_academia_theme_h_0fc5a384-819b-40fe-ae0b-ebdab1ce9cac.png?width=707&height=471"
+img_url = "https://media.discordapp.net/attachments/984632500875821066/1105248540336345258/HHT_A_robot_study_a_bible_hyper_realistic_dark_academia_theme_h_b5191b37-757b-452d-b5b7-5362c1cb588f.png?width=941&height=471"
 st.image(image=img_url, use_column_width='auto')
 
 import_result = []
@@ -95,5 +95,3 @@ with st.form(key='import_form'):
     # text_input = st.text_input(label='Enter your name')
     import_submit_button = st.form_submit_button(
         label='Start import PDF file', on_click=import_file)
-
-
