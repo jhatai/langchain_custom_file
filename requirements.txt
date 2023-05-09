@@ -6,3 +6,4 @@ tiktoken
 faiss-cpu
 unstructured
 pdf2image
+pytesseract
