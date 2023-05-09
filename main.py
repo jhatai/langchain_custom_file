@@ -2,7 +2,7 @@ import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
 import openai
-from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import PyPDFLoader,MathpixPDFLoader
 from langchain.vectorstores import FAISS
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain import OpenAI, VectorDBQA
@@ -73,7 +73,7 @@ def import_file():
     faiss_index = None
     try:
         # loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
-        loader = PyPDFLoader("https://drive.google.com/file/d/1wTYmXZ-ZnmCnGsu9NK3U7VqZ5VV90dp1/view?usp=sharing")
+        loader = MathpixPDFLoader("https://drive.google.com/file/d/1wTYmXZ-ZnmCnGsu9NK3U7VqZ5VV90dp1/view?usp=sharing")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
