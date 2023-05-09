@@ -1,0 +1,10 @@
+langchain
+openai
+streamlit
+pypdf
+tiktoken
+faiss-cpu
+unstructured
+pdf2image
+pytesseract
+detectron2

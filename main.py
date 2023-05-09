@@ -73,7 +73,9 @@ def import_file():
     faiss_index = None
     try:
         # loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
-        loader = OnlinePDFLoader("https://www.pmi.com/docs/default-source/pmi-sustainability/pmi-integrated-report-2020.pdf")
+        # loader = OnlinePDFLoader("https://www.pmi.com/docs/default-source/pmi-sustainability/pmi-integrated-report-2020.pdf")
+        loader = OnlinePDFLoader(st.session_state.file_url)
+        
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
@@ -93,7 +95,7 @@ def import_file():
 
 
 with st.form(key='import_form'):
-    # url_input = st.text_input(label='Enter your name',key="file_url")
+    url_input = st.text_input(label='Enter pdf url',key="file_url")
     import_submit_button = st.form_submit_button(
         label='Start import PDF file', on_click=import_file)
 
