@@ -72,7 +72,8 @@ def show_human_search_form(faiss_index):
 def import_file():
     faiss_index = None
     try:
-        loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
+        # loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
+        loader = PyPDFLoader("https://drive.google.com/file/d/1wTYmXZ-ZnmCnGsu9NK3U7VqZ5VV90dp1/view?usp=share_link")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
@@ -92,6 +93,7 @@ def import_file():
 
 
 with st.form(key='import_form'):
-    # text_input = st.text_input(label='Enter your name')
+    # url_input = st.text_input(label='Enter your name',key="file_url")
     import_submit_button = st.form_submit_button(
         label='Start import PDF file', on_click=import_file)
+
