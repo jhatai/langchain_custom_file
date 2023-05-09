@@ -73,7 +73,7 @@ def import_file():
     faiss_index = None
     try:
         # loader = PyPDFLoader("docs/Data_Analysis_with_Python_and_PySpark.pdf")
-        loader = OnlinePDFLoader("https://drive.google.com/file/d/1wTYmXZ-ZnmCnGsu9NK3U7VqZ5VV90dp1/view?usp=sharing")
+        loader = OnlinePDFLoader("https://www.pmi.com/docs/default-source/pmi-sustainability/pmi-integrated-report-2020.pdf")
         pages = loader.load_and_split()
         faiss_index = FAISS.from_documents(
             pages, OpenAIEmbeddings(openai_api_key=openai_api_key))
